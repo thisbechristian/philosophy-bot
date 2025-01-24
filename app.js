@@ -1,27 +1,24 @@
-const { OpenAI } = require('openai');
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 // Constants
-const model = "gpt-4o-mini";
+const model = "gemini-2.0-flash-exp";
+const generationConfig = { temperature: 2, responseMimeType: "text/plain", };
 const prompt = "Hello, how are you today?";
 
-const openAiApiKey = process.env.AI_API_KEY;
-if (!openAiApiKey) { throw new Error('Open API Key was not found.'); }
+// Create AI Client 
+const apiKey = process.env.GOOGLEAI_API_KEY;
+const googleAI = new GoogleGenerativeAI(apiKey);
+const ai = googleAI.getGenerativeModel({ model });
 
-// Initialize OpenAI with the API key
-const openAI = new OpenAI({ apiKey: openAiApiKey });
-
-// Function to call the ChatGPT API
-async function chatWithGpt(prompt) {
+const run = async () => {
     try {
-        const response = await openAI.chat.completions.create({
-            model: model,
-            messages: [{ role: 'user', content: prompt }],
-        });
-        console.log(JSON.stringify(response));
+        // Prompt AI
+        const aiChatSession = ai.startChat({ generationConfig, history: [], });
+        const result = await aiChatSession.sendMessage(prompt);
+        console.log(result.response.text());
     } catch (error) {
-        console.error('Error calling the OpenAI API:', error);
+        console.log(error);
     }
 }
 
-// Example usage
-chatWithGpt(prompt);
+run();
