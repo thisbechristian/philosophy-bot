@@ -1,7 +1,7 @@
 const { OpenAI } = require('openai');
 
 // Constants
-const model = "chatgpt-4o-latest";
+const model = "gpt-4o-mini";
 const prompt = "Hello, how are you today?";
 
 const openAiApiKey = process.env.OPENAI_API_KEY;
