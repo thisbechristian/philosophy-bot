@@ -1,14 +1,11 @@
 const { OpenAI } = require('openai');
 
-const openAiApiKey = process.env.OPENAI_API_KEY;
+// Constants
 const model = "chatgpt-4o-latest";
 const prompt = "Hello, how are you today?";
 
-if (openAiApiKey) {
-    console.log('Open API Key:', openAiApiKey);
-} else {
-    throw new Error('Open API Key was not found.');
-}
+const openAiApiKey = process.env.OPENAI_API_KEY;
+if (!openAiApiKey) { throw new Error('Open API Key was not found.'); }
 
 // Initialize OpenAI with the API key
 const openAI = new OpenAI({ apiKey: openAiApiKey });
@@ -28,3 +25,15 @@ async function chatWithGpt(prompt) {
 
 // Example usage
 chatWithGpt(prompt);
+
+const sendmail = require('sendmail')();
+
+sendmail({
+    from: 'thisbechristian@fake.com',
+    to: 'christianjboni@gmail.com',
+    subject: 'Subject',
+    html: 'Body ',
+}, function (err, reply) {
+    console.log(err && err.stack);
+    console.dir(reply);
+});
