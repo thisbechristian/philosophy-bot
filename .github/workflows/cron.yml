@@ -25,4 +25,6 @@ jobs:
 
       # Step 4: Run your Node.js application
       - name: Run application
+        env:
+          MY_SECRET_KEY: ${{ secrets.OPEN_API_KEY }} # Pass the secret in as an environment variable
         run: npm start
