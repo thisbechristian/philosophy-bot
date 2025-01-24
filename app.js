@@ -33,7 +33,8 @@ const run = async () => {
         // Prompt AI
         const aiChatSession = ai.startChat({ generationConfig, history: [], });
         const result = await aiChatSession.sendMessage(prompt);
-        aiResponse = result.response.text;
+        aiResponse = result.response.text();
+        console.log("Successfully prompted AI");
     } catch (error) {
         console.log("Failed to prompt AI: ", error);
     }
@@ -42,8 +43,9 @@ const run = async () => {
         email.subject = "";
         email.html = aiResponse;
         await transporter.sendMail(email);
+        console.log("Successfully sent Email");
     } catch (error) {
-        console.log("Failed to send Emai: ", error);
+        console.log("Failed to send Email: ", error);
     }
 }
 
