@@ -1,0 +1,28 @@
+name: Run Application on Schedule
+
+on:
+  schedule:
+    - cron: "*/5 * * * *" # This runs the job every hour (UTC)
+
+jobs:
+  run-application:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22" # Replace with your preferred Node.js version
+
+      # Step 3: Install Node.js dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run your Node.js application
+      - name: Run application
+        run: npm start
