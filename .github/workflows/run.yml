@@ -1,8 +1,11 @@
-name: Run Application on Schedule
+name: Run Application
 
 on:
-  schedule:
-    - cron: "*/5 * * * *" # This runs the job every hour (UTC)
+  # Allow this workflow to be called by other workflows
+  workflow_call: {}
+
+  # Allow this workflow to be triggered manually
+  workflow_dispatch: {}
 
 jobs:
   run-application:
