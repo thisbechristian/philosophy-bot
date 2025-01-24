@@ -23,9 +23,6 @@ Write in a concise manner, avoid being overly verbose.
 
 Format:
 The output should be formatted as a JSON object with the following structure:
-json
-Copy
-Edit
 {
   "subject": "string",
   "body": "string"
@@ -74,9 +71,16 @@ const run = async () => {
         console.log("Failed to prompt AI: ", error);
     }
     try {
+        // Parse JSON
+        const results = JSON.parse(aiResponse);
+        email.subject = results.subject;
+        email.html = results.body;
+        console.log("Successfully parsed AI response");
+    } catch (error) {
+        console.log(`Failed to parse AI response, ${aiResponse}`, error);
+    }
+    try {
         // Send Email
-        email.subject = "";
-        email.html = aiResponse;
         await transporter.sendMail(email);
         console.log("Successfully sent Email");
     } catch (error) {
