@@ -4,7 +4,7 @@ const { OpenAI } = require('openai');
 const model = "gpt-4o-mini";
 const prompt = "Hello, how are you today?";
 
-const openAiApiKey = process.env.OPENAI_API_KEY;
+const openAiApiKey = process.env.AI_API_KEY;
 if (!openAiApiKey) { throw new Error('Open API Key was not found.'); }
 
 // Initialize OpenAI with the API key
