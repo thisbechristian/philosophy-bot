@@ -25,15 +25,3 @@ async function chatWithGpt(prompt) {
 
 // Example usage
 chatWithGpt(prompt);
-
-const sendmail = require('sendmail')();
-
-sendmail({
-    from: 'thisbechristian@fake.com',
-    to: 'christianjboni@gmail.com',
-    subject: 'Subject',
-    html: 'Body ',
-}, function (err, reply) {
-    console.log(err && err.stack);
-    console.dir(reply);
-});
