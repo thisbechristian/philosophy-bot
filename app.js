@@ -28,24 +28,25 @@ const transporter = nodemailer.createTransport({
 });
 
 const run = async () => {
-    let aiResponse = "";
+    let response = "";
     try {
         // Prompt AI
         const aiChatSession = ai.startChat({ generationConfig, history: [], });
         const result = await aiChatSession.sendMessage(prompt);
-        aiResponse = result.response.text();
+        response = result.response.text();
         console.log("Successfully prompted AI");
     } catch (error) {
         console.log("Failed to prompt AI: ", error);
     }
     try {
         // Parse JSON
-        const results = JSON.parse(aiResponse);
+        const results = JSON.parse(response);
         email.subject = results.subject;
         email.html = results.body;
-        console.log("Successfully parsed AI response");
+        console.log("Successfully parsed the response from AI");
     } catch (error) {
-        console.log(`Failed to parse AI response, ${aiResponse}`, error);
+        console.log("Failed to parse the response from AI: ", error);
+        console.log("AI response: ", response)
     }
     try {
         // Send Email
