@@ -1,0 +1,35 @@
+name: Timezone
+
+on:
+  workflow_call:
+    inputs:
+      timezone:
+        required: true
+        type: string
+      hour:
+        required: true
+        type: string
+    outputs:
+      result:
+        value: ${{ jobs.check-timezone.outputs.result }}
+
+jobs:
+  check-timezone:
+    runs-on: ubuntu-latest
+
+    outputs:
+      result: ${{ steps.check.outputs.result }}
+
+    steps:
+      # Step 1: Perform the Timezone check
+      - name: Check Timezone
+        id: check
+        run: |
+          current_hour=$(TZ='${{ inputs.timezone }}' date +'%H')
+          echo "Current hour in ${{ inputs.timezone }}: $current_hour"
+
+          if [ "$current_hour" == "${{ inputs.hour }}" ]; then
+            echo "result=true" >> $GITHUB_OUTPUT
+          else
+            echo "result=false" >> $GITHUB_OUTPUT
+          fi

@@ -2,8 +2,17 @@ name: Run Application on Schedule
 
 on:
   schedule:
-    - cron: "0 6 * * *" # Schedule at 06:00AM each day
+    - cron: "0 10,11 * * *" # Schedule at 06:00AM each day (EST and EDT)
 
 jobs:
-  call-reusable-workflow:
+  check-timezone:
+    uses: ./.github/workflows/timezone.yml
+    with:
+      hour: "06" # Check if the hour is 6AM
+      timezone: "America/New_York" # timezone is EST/EDT
+
+  run-application:
+    needs: check-timezone
+    if: ${{ needs.check-timezone.outputs.result == 'true' }}
     uses: ./.github/workflows/run.yml
+    secrets: inherit
