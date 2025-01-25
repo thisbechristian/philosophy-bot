@@ -2,7 +2,7 @@ name: Run Application on Schedule
 
 on:
   schedule:
-    - cron: "0 10,11 * * *" # Schedule at 06:00AM each day (EST and EDT)
+    - cron: "15 10,11 * * *" # Schedule at 06:15AM each day (EST and EDT)
 
   workflow_dispatch: {}
 
