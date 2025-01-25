@@ -11,7 +11,8 @@ const generationConfig = { temperature: 1, responseMimeType: "application/json",
 const fromEmail = process.env.EMAIL;
 const email = {
     from: `Circadian Contemplations <${fromEmail}>`,
-    to: ["christianjboni@gmail.com", "laurenrosnick@gmail.com"]
+    to: "christianjboni@gmail.com",
+    //to: ["christianjboni@gmail.com", "laurenrosnick@gmail.com"]
 };
 
 // Create AI Client 
