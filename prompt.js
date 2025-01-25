@@ -1,4 +1,4 @@
-export const prompt = `
+export default prompt = `
 Generate a user-friendly email inspired by a random phrase or passage from a randomly selected book on one of the following topics related to philosophy: Stoicism, Taoism, Buddhism, Hinduism, or Confucianism. 
 
 Some example books on Stocism:

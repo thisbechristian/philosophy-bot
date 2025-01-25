@@ -1,7 +1,7 @@
 // Imports
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const nodemailer = require('nodemailer');
-import { prompt } from "./prompt";
+const prompt = require ("./prompt.js");
 
 // AI Options
 const model = "gemini-2.0-flash-exp";
