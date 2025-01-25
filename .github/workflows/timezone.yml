@@ -26,8 +26,9 @@ jobs:
         id: check
         run: |
           current_hour=$(TZ='${{ inputs.timezone }}' date +'%H')
-          echo "Current hour in ${{ inputs.timezone }}: $current_hour"
-
+          echo "Given hour: ${{ inputs.hour }}"
+          echo "Current hour: $current_hour (${{ inputs.timezone }})"
+          
           if [ "$current_hour" == "${{ inputs.hour }}" ]; then
             echo "result=true" >> $GITHUB_OUTPUT
           else
