@@ -10,7 +10,10 @@ const generationConfig = { temperature: 2, responseMimeType: "text/plain", };
 // Email Options
 const fromEmail = process.env.EMAIL;
 const email = {
-    from: fromEmail,
+    from: {
+        name: "A Daily Dose Of Philosophy",
+        email: fromEmail
+    },
     to: ["christianjboni@gmail.com"]
 };
 
