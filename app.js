@@ -1,7 +1,7 @@
 // Imports
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const nodemailer = require('nodemailer');
-const prompt = require ("./prompt.js");
+const prompt = require("./prompt.js");
 
 // AI Options
 const model = "gemini-2.0-flash-exp";
@@ -10,10 +10,7 @@ const generationConfig = { temperature: 1, responseMimeType: "application/json",
 // Email Options
 const fromEmail = process.env.EMAIL;
 const email = {
-    from: {
-        name: "A Daily Dose of Philosophy",
-        email: fromEmail
-    },
+    from: `Circadian Contemplations <${fromEmail}>`,
     to: ["christianjboni@gmail.com"]
 };
 
