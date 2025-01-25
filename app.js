@@ -40,6 +40,7 @@ const run = async () => {
         console.log("Successfully prompted AI");
     } catch (error) {
         console.log("Failed to prompt AI: ", error);
+        throw error;
     }
     try {
         // Parse JSON
@@ -49,7 +50,8 @@ const run = async () => {
         console.log("Successfully parsed the response from AI");
     } catch (error) {
         console.log("Failed to parse the response from AI: ", error);
-        console.log("AI response: ", response)
+        console.log("AI response: ", response);
+        throw error;
     }
     try {
         // Send Email
@@ -57,6 +59,7 @@ const run = async () => {
         console.log("Successfully sent Email");
     } catch (error) {
         console.log("Failed to send Email: ", error);
+        throw error;
     }
 }
 
