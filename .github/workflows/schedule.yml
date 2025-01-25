@@ -4,6 +4,8 @@ on:
   schedule:
     - cron: "0 10,11 * * *" # Schedule at 06:00AM each day (EST and EDT)
 
+  workflow_dispatch: {}
+
 jobs:
   check-timezone:
     uses: ./.github/workflows/timezone.yml
