@@ -5,13 +5,13 @@ const prompt = require ("./prompt.js");
 
 // AI Options
 const model = "gemini-2.0-flash-exp";
-const generationConfig = { temperature: 2, responseMimeType: "text/plain", };
+const generationConfig = { temperature: 1, responseMimeType: "application/json", };
 
 // Email Options
 const fromEmail = process.env.EMAIL;
 const email = {
     from: {
-        name: "A Daily Dose Of Philosophy",
+        name: "A Daily Dose of Philosophy",
         email: fromEmail
     },
     to: ["christianjboni@gmail.com"]
