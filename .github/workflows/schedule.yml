@@ -2,7 +2,7 @@ name: Run Application on Schedule
 
 on:
   schedule:
-    - cron: "*/2 * * * *" # Schedule at 06:00AM each day (EST and EDT)
+    - cron: "*/7 * * * *" # Schedule at 06:00AM each day (EST and EDT)
 
 jobs:
   check-timezone:
