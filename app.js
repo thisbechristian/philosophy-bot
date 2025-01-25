@@ -1,43 +1,11 @@
 // Imports
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const nodemailer = require('nodemailer');
+import { prompt } from "./prompt";
 
 // AI Options
 const model = "gemini-2.0-flash-exp";
 const generationConfig = { temperature: 2, responseMimeType: "text/plain", };
-const prompt = `
-I would like you to generate a user-friendly email inspired by a random phrase or passage from a randomly selected book on one of the following topics: Stoicism, Buddhism, or Taoism.
-
-Criteria for the email:
-
-Sender: The sender of the email should remain anonymous. Avoid referencing any specific individual or organization.
-
-Summarization:
-Summarize the selected phrase or passage in simple and accessible language suitable for teenagers or young adults.
-Avoid using overly complex terms or academic jargon.
-
-Target Audience:
-Write for individuals seeking self-help guidance on various life challenges, such as stress, decision-making, relationships, or personal growth.
-Ensure the content is relatable, motivational, and actionable.
-Write in a concise manner, avoid being overly verbose.
-
-Format:
-The output should be formatted as a JSON object with the following structure:
-{
-  "subject": "string",
-  "body": "string"
-}
-The "body" parameter should contain an HTML-formatted string that uses:
-Headings (<h1>, <h2>, <h3>)
-Block quotes (<blockquote>)
-Bold (<b>) and italic (<i>) text
-Lists (<ul> or <ol>)
-This formatting should create a visually engaging and easy-to-read email.
-
-Tone:
-The tone should be empathetic, motivational, and actionable.
-Focus on offering relatable insights and practical advice.
-`;
 
 // Email Options
 const fromEmail = process.env.EMAIL;
