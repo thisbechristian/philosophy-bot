@@ -35,3 +35,16 @@ jobs:
           EMAIL: ${{ secrets.EMAIL }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
         run: npm start
+
+      # Step 5: Configure Git User (required to commit changes to the repository)
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # Step 6: Commit the changes to Persist the AI Chat History
+      - name: Commit changes
+        run: |
+          git add history.json
+          git commit -m "update chat history (automated)"
+          git push
