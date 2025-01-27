@@ -1,11 +1,19 @@
 // Imports
+const fs = require('fs/promises');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const nodemailer = require('nodemailer');
-const prompt = require("./prompt.js");
+const newPrompt = require("./prompt.js");
+const history = require("./history.json");
 
 // AI Options
 const model = "gemini-2.0-flash-exp";
 const generationConfig = { temperature: 1, responseMimeType: "application/json", };
+const topics = ["Stoicism", "Taoism", "Buddhism", "Hinduism", "Confucianism"];
+const randomTopic = topics[Math.floor(Math.random() * topics.length)];
+const existingPrompt = `Generate another email using a book with a topic of ${randomTopic}`;
+const prompt = (history && history.length) > 0 ? existingPrompt : newPrompt;
+const maximumChatHistoryLength = (15 * 2); // Limit the maximum Chat History length (includes both a prompt and a response)
+const numberOfRecentChatsToPersist = (5 * 2); // Number of recent Chat History to persist when maximum is reached (includes both a prompt and a response)
 
 // Email Options
 const fromEmail = process.env.EMAIL;
@@ -31,10 +39,26 @@ const run = async () => {
     let response = "";
     try {
         // Prompt AI
-        const aiChatSession = ai.startChat({ generationConfig, history: [], });
+        const aiChatSession = ai.startChat({ generationConfig, history });
         const result = await aiChatSession.sendMessage(prompt);
         response = result.response.text();
         console.log("Successfully prompted AI");
+        try {
+            // Persist AI Chat History
+            let chatHistory = await aiChatSession.getHistory();
+            // Trim Chat History if it exceeds the maximum limit
+            const currentChatHistoryLength = chatHistory.length;
+            if (currentChatHistoryLength > maximumChatHistoryLength) {
+                const initialChatHistory = chatHistory.slice(0, 2);
+                const recentChatHistory = chatHistory.slice(currentChatHistoryLength - numberOfRecentChatsToPersist, currentChatHistoryLength);
+                chatHistory = [...initialChatHistory, ...recentChatHistory];
+            }
+            await fs.writeFile('history.json', JSON.stringify(chatHistory));
+            console.log("Successfully persisted AI Chat History");
+        } catch (error) {
+            console.error('Failed to persist AI Chat History:', error);
+            // continue 
+        }
     } catch (error) {
         console.log("Failed to prompt AI: ", error);
         throw error;
